@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пульт · лендинги под вакансии · Рекруто</title>
+<meta name="description" content="Скопировал промпт, скачал файлы, передал разработчику. Без воды.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#2567fc; --blue-2:#5199ff; --blue-deep:#0a1b3d;
+    --ink:#0a0c14; --ink-2:#1c2030; --muted:#6b7180;
+    --paper:#ffffff; --paper-2:#f4f6fb; --paper-3:#eef2fa;
+    --line:rgba(10,12,20,.08); --line-soft:rgba(10,12,20,.05);
+    --red:#d63a3a; --red-bg:#fdecec; --green:#1f9d57; --green-bg:#e9f7ef;
+    --amber:#b97400; --amber-bg:#fdf3e3;
+    --radius:16px; --radius-sm:11px; --maxw:1180px;
+    --font:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --nav-w:262px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--font);color:var(--ink);background:var(--paper);
+    font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3,h4{line-height:1.14;margin:0;letter-spacing:-.02em}
+  code{font-family:var(--mono);font-size:.86em}
+
+  /* ===== Top bar ===== */
+  header.top{position:sticky;top:0;z-index:60;background:var(--ink);
+    border-bottom:1px solid rgba(255,255,255,.08)}
+  .top-in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;
+    gap:14px;padding:12px 20px}
+  .brand{display:flex;align-items:center;gap:11px;min-width:0}
+  .brand img{height:22px;width:auto;display:block}
+  .brand .sep{width:1px;height:20px;background:rgba(255,255,255,.18)}
+  .brand .kicker{color:#fff;font-weight:600;font-size:13px;letter-spacing:.01em;white-space:nowrap}
+  .brand .kicker span{color:var(--blue-2)}
+  .top-spacer{flex:1}
+  .top a.gh{color:#cdd6ec;font-weight:600;font-size:12.5px;border:1px solid rgba(255,255,255,.18);
+    padding:7px 13px;border-radius:9px;white-space:nowrap}
+  .top a.gh:hover{color:#fff;border-color:var(--blue-2);text-decoration:none}
+  .burger{display:none;background:none;border:1px solid rgba(255,255,255,.2);border-radius:9px;
+    color:#fff;font-size:18px;width:40px;height:38px;cursor:pointer;flex:none}
+
+  /* ===== Hero (compact, utilitarian) ===== */
+  .hero{background:linear-gradient(180deg,var(--ink),var(--blue-deep));color:#fff;
+    padding:34px 20px 30px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-100px;top:-120px;width:360px;height:360px;
+    background:radial-gradient(circle,rgba(37,103,252,.4),transparent 65%)}
+  .hero-in{max-width:var(--maxw);margin:0 auto;position:relative;z-index:1}
+  .hero .eyebrow{font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--blue-2);margin-bottom:10px}
+  .hero h1{font-weight:900;font-size:clamp(24px,4.4vw,40px);max-width:20ch}
+  .hero h1 em{font-style:normal;color:var(--blue-2)}
+  .hero p.lead{margin:12px 0 0;font-size:clamp(14px,1.8vw,16.5px);color:#c5cee4;max-width:64ch}
+  .hero .steps-strip{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+  .hero .steps-strip a{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.16);color:#dfe6f7;font-weight:600;font-size:12.5px;
+    padding:7px 12px;border-radius:999px}
+  .hero .steps-strip a:hover{background:rgba(37,103,252,.25);border-color:var(--blue-2);
+    color:#fff;text-decoration:none}
+  .hero .steps-strip a b{color:var(--blue-2);font-variant-numeric:tabular-nums}
+
+  /* ===== Layout ===== */
+  .shell{max-width:var(--maxw);margin:0 auto;display:grid;
+    grid-template-columns:var(--nav-w) minmax(0,1fr);gap:38px;padding:0 20px}
+  nav.side{position:sticky;top:70px;align-self:start;max-height:calc(100vh - 86px);
+    overflow-y:auto;padding:26px 0 50px;border-right:1px solid var(--line)}
+  nav.side ol{list-style:none;margin:0;padding:0}
+  nav.side .grp{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);margin:20px 0 7px}
+  nav.side .grp:first-child{margin-top:0}
+  nav.side a{display:flex;gap:9px;color:var(--ink-2);font-size:13.5px;font-weight:500;
+    padding:7px 13px;border-left:2px solid transparent;border-radius:0 8px 8px 0}
+  nav.side a:hover{background:var(--paper-2);text-decoration:none}
+  nav.side a.active{color:var(--blue);border-left-color:var(--blue);background:var(--paper-2);font-weight:700}
+  nav.side a .n{color:var(--muted);font-variant-numeric:tabular-nums;flex:none;width:14px}
+  nav.side a.active .n{color:var(--blue)}
+
+  main{padding:32px 0 90px;min-width:0}
+  section.doc{scroll-margin-top:74px;padding-top:34px;margin-top:30px;border-top:1px solid var(--line)}
+  section.doc:first-child{margin-top:0;border-top:0;padding-top:6px}
+  .step-badge{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:12px;
+    letter-spacing:.04em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+  .step-badge .dot{width:25px;height:25px;border-radius:8px;background:var(--blue);color:#fff;
+    display:grid;place-items:center;font-size:12.5px;font-weight:800}
+  h2.s{font-weight:900;font-size:clamp(22px,3vw,30px)}
+  h3.s{font-weight:800;font-size:18px;margin-top:26px}
+  main p{margin:11px 0;max-width:74ch;color:var(--ink-2)}
+  main p.sub{color:var(--muted);font-size:14.5px;margin-top:6px}
+
+  /* ===== Cards / tiles ===== */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin:16px 0}
+  .card.tint{background:var(--paper-2)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .tile{background:var(--paper-2);border:1px solid var(--line-soft);border-radius:var(--radius-sm);
+    padding:15px 16px;min-width:0}
+  .tile h4{margin:0 0 5px;font-weight:700;font-size:14.5px}
+  .tile p{margin:0;font-size:13.5px;color:var(--muted)}
+
+  .callout{border-radius:13px;padding:14px 16px;margin:16px 0;border:1px solid;font-size:14px}
+  .callout p{margin:5px 0;max-width:none;color:inherit}
+  .callout .ttl{font-weight:800;font-size:12px;letter-spacing:.03em;text-transform:uppercase;
+    display:flex;align-items:center;gap:7px;margin-bottom:5px}
+  .c-warn{background:var(--amber-bg);border-color:#f0d59a;color:#5d3c00}.c-warn .ttl{color:var(--amber)}
+  .c-stop{background:var(--red-bg);border-color:#f3c2c2;color:#7a1f1f}.c-stop .ttl{color:var(--red)}
+  .c-ok{background:var(--green-bg);border-color:#bfe6cf;color:#13502f}.c-ok .ttl{color:var(--green)}
+  .c-info{background:#eaf1ff;border-color:#c5d8ff;color:#143a8a}.c-info .ttl{color:var(--blue)}
+
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+  .chip{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;
+    background:var(--paper-3);border:1px solid var(--line-soft);color:var(--ink-2)}
+  .chip.stop{background:var(--red-bg);border-color:#f3c2c2;color:var(--red);
+    text-decoration:line-through;text-decoration-thickness:1.5px}
+
+  /* ===== Checklist (tappable) ===== */
+  .check{list-style:none;padding:0;margin:12px 0}
+  .check li{position:relative;padding:9px 0 9px 32px;border-bottom:1px solid var(--line-soft);
+    font-size:14px;margin:0;cursor:pointer;color:var(--ink-2);transition:.12s}
+  .check li::before{content:"";position:absolute;left:0;top:8px;width:19px;height:19px;
+    border:2px solid var(--blue);border-radius:6px;background:#fff;transition:.12s}
+  .check li::after{content:"✓";position:absolute;left:3.5px;top:6px;color:#fff;
+    font-weight:800;font-size:13px;opacity:0;transition:.12s}
+  .check li.done{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+  .check li.done::before{background:var(--blue)}
+  .check li.done::after{opacity:1}
+
+  /* ===== Prompt block (the core) ===== */
+  .prompt{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:16px 0;
+    background:var(--paper)}
+  .prompt-head{display:flex;align-items:center;gap:10px;padding:12px 14px 12px 16px;
+    background:var(--paper-2);border-bottom:1px solid var(--line)}
+  .prompt-head .lbl{font-weight:700;font-size:13.5px;color:var(--ink);min-width:0}
+  .prompt-head .lbl small{display:block;font-weight:500;font-size:11.5px;color:var(--muted);margin-top:2px}
+  .prompt-head .sp{flex:1}
+  .copy{display:inline-flex;align-items:center;gap:7px;background:var(--blue);color:#fff;border:0;
+    font-family:var(--font);font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:9px;
+    cursor:pointer;transition:.12s;flex:none}
+  .copy:hover{background:#1a55e0}
+  .copy.ok{background:var(--green)}
+  .copy svg{width:14px;height:14px}
+  /* tabs inside a prompt group */
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;padding:12px 14px 0}
+  .tab{font-family:var(--font);font-weight:600;font-size:12.5px;padding:7px 13px;border-radius:999px;
+    border:1px solid var(--line);background:#fff;color:var(--ink-2);cursor:pointer;transition:.12s}
+  .tab:hover{border-color:var(--blue-2)}
+  .tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .panel{display:none}
+  .panel.active{display:block}
+  pre{margin:0;background:#0b1020;color:#e8ecf6;padding:16px 16px;overflow-x:auto;
+    font-family:var(--mono);font-size:12.6px;line-height:1.62;white-space:pre-wrap;word-break:break-word;
+    tab-size:2}
+  pre .ph{color:#ffd479;font-weight:500} /* [плейсхолдеры] */
+  pre .kw{color:#7fb4ff;font-weight:600}  /* ЗАГОЛОВКИ блоков */
+  .prompt .hint{font-size:12.5px;color:var(--muted);padding:10px 16px;background:var(--paper-2);
+    border-top:1px solid var(--line)}
+  .prompt .hint b{color:var(--ink-2)}
+
+  /* small inline copy for short snippets */
+  .snip{position:relative;margin:12px 0}
+  .snip pre{border-radius:11px}
+  .snip .copy{position:absolute;top:9px;right:9px;padding:6px 11px;font-size:11.5px}
+
+  /* download list */
+  .dl{display:grid;gap:10px;margin:14px 0}
+  .dl a.row{display:flex;align-items:center;gap:13px;border:1px solid var(--line);border-radius:12px;
+    padding:13px 15px;background:#fff;color:var(--ink);transition:.12s}
+  .dl a.row:hover{border-color:var(--blue);background:var(--paper-2);text-decoration:none}
+  .dl .ic{width:38px;height:38px;border-radius:9px;background:var(--paper-3);display:grid;
+    place-items:center;flex:none;color:var(--blue);font-weight:800;font-size:11px;font-family:var(--mono)}
+  .dl .meta{min-width:0;flex:1}
+  .dl .meta .nm{font-weight:700;font-size:14px}
+  .dl .meta .ds{font-size:12.5px;color:var(--muted);margin-top:1px}
+  .dl .meta .ds b{color:var(--ink-2);font-weight:600}
+  .dl .arr{color:var(--blue);font-weight:800;flex:none}
+  .dl .when{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;
+    letter-spacing:.04em;flex:none;background:var(--paper-3);padding:4px 9px;border-radius:7px}
+  .dl .when.cl{color:#8a5a00;background:#fbeecb}
+  .dl .when.re{color:#143a8a;background:#dbe6ff}
+
+  /* flow diagram */
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:14px 0}
+  .flow .step{flex:1;min-width:120px;background:var(--paper-2);border:1px solid var(--line);
+    border-radius:12px;padding:13px 13px}
+  .flow .step .k{font-size:11px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.05em}
+  .flow .step .t{font-size:13px;font-weight:600;margin-top:4px;color:var(--ink-2)}
+  .flow .arr{align-self:center;color:var(--muted);font-weight:800}
+
+  table.spec{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  table.spec th,table.spec td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  table.spec th{font-weight:700;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  table.spec td code{background:var(--paper-3);padding:1px 5px;border-radius:5px}
+
+  footer.foot{background:var(--ink);color:#aeb6cc;margin-top:40px}
+  .foot-in{max-width:var(--maxw);margin:0 auto;padding:26px 20px;display:flex;flex-wrap:wrap;
+    gap:16px;align-items:center;font-size:13px}
+  .foot-in img{height:20px}
+  .foot-in .sp{flex:1}
+
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:11px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.18s;z-index:90}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:880px){
+    .shell{grid-template-columns:1fr;gap:0}
+    nav.side{position:fixed;inset:0 auto 0 0;width:280px;max-height:none;height:100%;background:#fff;
+      z-index:70;transform:translateX(-100%);transition:.22s;box-shadow:0 0 40px rgba(0,0,0,.2);
+      padding:18px 12px 40px;border-right:1px solid var(--line)}
+    nav.side.open{transform:none}
+    .nav-back{display:none;position:fixed;inset:0;background:rgba(8,10,18,.5);z-index:65}
+    .nav-back.open{display:block}
+    .burger{display:grid;place-items:center}
+    .brand .kicker,.brand .sep{display:none}
+    .top a.gh{display:none}
+    main{padding:24px 0 70px}
+    .grid2,.grid3{grid-template-columns:1fr}
+    .hero{padding:26px 20px 24px}
+  }
+  /* inline download pill — для скачивания прямо по тексту */
+  .fdl{display:inline-flex;align-items:center;gap:5px;font-weight:600;font-size:.93em;
+    background:var(--paper-3);border:1px solid #c5d8ff;border-radius:7px;
+    padding:1px 8px 2px;color:var(--blue);text-decoration:none;white-space:nowrap;line-height:1.3}
+  .fdl:hover{background:#dbe6ff;text-decoration:none}
+  .fdl svg{width:12px;height:12px;flex:none}
+  /* rename table for video handoff */
+  table.rn{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  table.rn th,table.rn td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--line)}
+  table.rn th{font-weight:700;background:var(--paper-2);font-size:12px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  table.rn code{color:var(--blue)}
+  .miniflow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0;font-size:13px}
+  .miniflow .b{background:var(--paper-2);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-weight:600}
+  .miniflow .b.accent{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .miniflow .a{color:var(--muted);font-weight:700}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+    <div class="brand">
+      <img src="data:image/png;base64,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" alt="Рекруто">
+      <span class="sep"></span>
+      <span class="kicker">Лендинги под вакансии · <span>пульт рекрутера</span></span>
+    </div>
+    <span class="top-spacer"></span>
+    <a class="gh" href="https://design.claude.ai" target="_blank" rel="noopener">Открыть Claude Design ↗</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <div class="eyebrow">Пульт</div>
+    <h1>Лендинги под вакансии. <em>Копируй и отправляй.</em></h1>
+    <div class="steps-strip">
+      <a href="#s1"><b>0</b> Тип</a>
+      <a href="#s2"><b>1</b> Файлы для чата</a>
+      <a href="#s4"><b>2</b> Промпт</a>
+      <a href="#s6"><b>3</b> Превью</a>
+      <a href="#s7"><b>4</b> Проверка</a>
+      <a href="#s8"><b>5</b> Собрать и передать</a>
+    </div>
+  </div>
+</section>
+
+<div class="nav-back" id="navBack"></div>
+<div class="shell">
+
+  <nav class="side" id="side">
+    <div class="grp">Поток</div>
+    <ol>
+      <li><a href="#s1"><span class="n">0</span> Тип</a></li>
+      <li><a href="#s2"><span class="n">1</span> Файлы для чата</a></li>
+      <li><a href="#s4"><span class="n">2</span> Промпт</a></li>
+      <li><a href="#s4b"><span class="n">2+</span> Правки</a></li>
+      <li><a href="#s6"><span class="n">3</span> Превью</a></li>
+      <li><a href="#s7"><span class="n">4</span> Проверка</a></li>
+      <li><a href="#s8"><span class="n">5</span> Собрать и передать</a></li>
+    </ol>
+    <div class="grp">Файлы</div>
+    <ol>
+      <li><a href="#files"><span class="n">↓</span> Все файлы</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ============ STEP 0 ============ -->
+    <section class="doc" id="s1">
+      <div class="step-badge"><span class="dot">0</span> Тип</div>
+      <h2 class="s">Какой это лендинг</h2>
+      <div class="grid2">
+        <div class="tile">
+          <h4>Клиентский</h4>
+          <p>Вакансия чужой компании. Бренд собираем у заказчика.</p>
+        </div>
+        <div class="tile">
+          <h4>Внутренний Рекруто</h4>
+          <p>Своя вакансия. Бренд уже готов в brand kit-е.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 1 ============ -->
+    <section class="doc" id="s2">
+      <div class="step-badge"><span class="dot">1</span> Файлы</div>
+      <h2 class="s">Прикрепить в чат до промпта</h2>
+
+      <div class="tabs" data-tabs="attach">
+        <button class="tab active" data-panel="att-cl">Клиентский</button>
+        <button class="tab" data-panel="att-re">Внутренний Рекруто</button>
+      </div>
+
+      <div class="panel active" id="att-cl">
+        <ul class="check">
+          <li><a class="fdl" href="files/instrukciya-lendingi-vakansii.md" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>instrukciya-lendingi-vakansii.md</a> — обязательно</li>
+          <li>HTML главной страницы сайта компании</li>
+          <li>Логотип компании (png/svg)</li>
+          <li>Текст вакансии с hh.ru + ссылка на оригинал</li>
+          <li>Транскрибация брифа / интервью / видео</li>
+          <li>Видео руководителя или сотрудника — если есть</li>
+          <li>Скриншоты статистики / отчётности — если есть</li>
+          <li>ИНН компании — для rusprofile / companium</li>
+        </ul>
+        <div class="callout c-warn">
+          <div class="ttl">▲ Если сайта у компании нет</div>
+          <p>Допиши в конец промпта:</p>
+          <div class="snip"><button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button><pre>Сайта у компании нет. Предложи 2–3 варианта пары «доминирующий цвет + акцент + шрифт» под сферу компании [сфера]. Покажи их мне до сборки — выберу, потом продолжай.</pre></div>
+        </div>
+      </div>
+
+      <div class="panel" id="att-re">
+        <ul class="check">
+          <li><a class="fdl" href="files/instrukciya-lendingi-vakansii.md" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>instrukciya-lendingi-vakansii.md</a> — обязательно</li>
+          <li><a class="fdl" href="files/recruto-brand-kit.md" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>recruto-brand-kit.md</a> — обязательно</li>
+          <li><a class="fdl" href="files/recruto-logo-datauri.txt" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>recruto-logo-datauri.txt</a></li>
+          <li>Текст вакансии с hh.ru + ссылка на оригинал</li>
+          <li>Видео-задание — публичная ссылка Google Drive, если есть</li>
+        </ul>
+      </div>
+
+      <p class="sub" style="margin-top:16px"><b>Технический файл — не сейчас.</b> <code>claude-design-landing-guide.md</code> крепится в самом конце, см. <a href="#s8">шаг 5</a>.</p>
+    </section>
+
+    <!-- ============ STEP 2 ============ -->
+    <!-- ============ STEP 3 — THE CORE ============ -->
+    <section class="doc" id="s4">
+      <div class="step-badge"><span class="dot">2</span> Промпт</div>
+      <h2 class="s">Скопировать → заполнить → отправить</h2>
+      <div class="callout c-info">
+        <div class="ttl">⚑ Перед копированием — убедись</div>
+        <ul style="margin:6px 0 0;padding-left:18px">
+          <li>Акценты названы (1–3 штуки, не больше)</li>
+          <li>Вакансия на hh.ru открыта: город, формат, вилка, задачи</li>
+          <li>Понятно с видео руководителя: есть файл — или чем заменяем</li>
+          <li>Видео-задание для кандидата: нужно ли? Если в брифе не сказано — не добавляем</li>
+        </ul>
+      </div>
+      <p class="sub">Желтым подсвечены места под заполнение — <b>замени всё в [квадратных скобках]</b>.</p>
+
+      <div class="prompt">
+        <div class="tabs" data-tabs="main" style="padding-bottom:12px">
+          <button class="tab active" data-panel="pm-cl">Клиентский</button>
+          <button class="tab" data-panel="pm-re">Внутренний Рекруто</button>
+        </div>
+
+        <!-- CLIENT -->
+        <div class="panel active" id="pm-cl">
+          <div class="prompt-head">
+            <div class="lbl">Клиентский лендинг<small>вакансия стороннего заказчика</small></div>
+            <span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button>
+          </div>
+          <pre><span class="kw">КОНТЕКСТ</span>
+Собери лендинг под вакансию «<span class="ph">[должность]</span>» для компании «<span class="ph">[компания]</span>».
+Тип лендинга: клиентский.
+
+<span class="kw">ИНСТРУКЦИИ (следуй строго)</span>
+Главный источник правил — приложенный файл:
+- «Инструкция по созданию лендингов» — содержание и дизайн.
+
+<span class="kw">ПРИЛОЖЕННЫЕ ФАЙЛЫ</span>
+- HTML главной страницы сайта компании — взять отсюда палитру и шрифты.
+- Текст вакансии с hh.ru, оригинал: <span class="ph">[ссылка hh.ru]</span>.
+- Логотип компании.
+- Транскрибация брифа/интервью — брать цитаты и факты отсюда.
+- <span class="ph">[Видео руководителя/сотрудника — если есть.]</span>
+- <span class="ph">[Скриншоты статистики/отчётности — если есть.]</span>
+- ИНН компании: <span class="ph">[ИНН]</span> — проверь открытую отчётность (rusprofile/companium), цифры с указанием источника и года.
+
+<span class="kw">АКЦЕНТЫ (1–3, не больше)</span>
+Что должно «продать» вакансию: <span class="ph">[акцент 1]</span>, <span class="ph">[акцент 2]</span>, <span class="ph">[акцент 3]</span>.
+Hero-заголовок строй вокруг акцента, а не вокруг должности.
+
+<span class="kw">ОГРАНИЧЕНИЯ</span>
+- Не добавляй задачи и навыки, которых нет в тексте вакансии.
+- Не выноси на лендинг: <span class="ph">[что именно — конфликты, текучка, цифры под NDA]</span>.
+- Соблюдай стоп-лист фраз из инструкции.
+
+<span class="kw">МУЛЬТИМЕДИА</span>
+<span class="ph">[Видео руководителя: ориентация [16:9 / 9:16 / кружок], подпись «[Имя, должность]», цитата под видео: «[цитата]».]</span>
+
+<span class="kw">АНКЕТА</span>
+Поля: <span class="ph">[ФИО, телефон, Telegram, возраст, опыт 0–15, ...]</span>.
+Заголовок секции — «Откликнуться». Все поля в один столбец.</pre>
+          <div class="hint"><b>Заполни:</b> должность · компания · ссылку hh · ИНН · акценты · ограничения · видео · поля анкеты. Лишние строки (видео, скриншоты) — удали, если их нет.</div>
+        </div>
+
+        <!-- RECRUTO -->
+        <div class="panel" id="pm-re">
+          <div class="prompt-head">
+            <div class="lbl">Внутренний лендинг Рекруто<small>бренд — из brand kit, вопросов про палитру не задаём</small></div>
+            <span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button>
+          </div>
+          <pre><span class="kw">КОНТЕКСТ</span>
+Собери внутренний лендинг Рекруто под вакансию «<span class="ph">[должность]</span>».
+Тип лендинга: внутренний Рекруто.
+
+<span class="kw">ИНСТРУКЦИИ (следуй строго)</span>
+- «Инструкция по созданию лендингов» — содержание и дизайн.
+- Brand kit Рекруто — цвета, шрифт, голос, цифры, описание компании. Бренд берём отсюда, вопросов про палитру/лого/цифры не задаём.
+- Лого Рекруто (data-URI) — вставь в шапку и подвал.
+
+<span class="kw">ПРИЛОЖЕННЫЕ ФАЙЛЫ</span>
+- Текст вакансии с hh.ru, оригинал: <span class="ph">[ссылка hh.ru]</span>.
+- <span class="ph">[Видео-задание — публичная ссылка Google Drive, если есть.]</span>
+
+<span class="kw">АКЦЕНТЫ (1–3)</span>
+<span class="ph">[акцент 1]</span>, <span class="ph">[акцент 2]</span>, <span class="ph">[акцент 3]</span>.
+Сквозные преимущества Рекруто (ИИ-автоматизация + гибкость в процессах) оставь как фундамент.
+Инструменты-доказательства (CRM / мессенджер / Слотто / ИИ / экспертиза) подбери 2–3 под акцент, не вываливай все.
+
+<span class="kw">ЗАРПЛАТА</span>
+<span class="ph">[формула: оклад + бонусы + проценты, с пояснением, зачем каждая часть]</span>.
+
+<span class="kw">ОГРАНИЧЕНИЯ</span>
+- Только задачи из текста вакансии, ничего «по аналогии».
+- «Рекрутмент», не «рекрутинг». Сколково — «проект реализуется в экосистеме», не «мы аккредитованы».
+- Слотто/CRM — мокап на CSS, не скриншот. Соблюдай стоп-лист.
+
+<span class="kw">АНКЕТА</span>
+Поля: <span class="ph">[ФИО, телефон, Telegram, опыт 0–15, ...]</span>.
+Заголовок секции — «Откликнуться». Все поля в один столбец.</pre>
+          <div class="hint"><b>Заполни:</b> должность · ссылку hh · акценты · зарплатную формулу · поля анкеты. Видео-задание — только если оно реально есть.</div>
+        </div>
+      </div>
+
+      <h3 class="s">Добавочные блоки к промпту</h3>
+      <p class="sub">Дописывай в конец промпта, только если случай подходит. Каждый — отдельная копия.</p>
+
+      <div class="prompt">
+        <div class="tabs" data-tabs="addon" style="padding-bottom:12px">
+          <button class="tab active" data-panel="ad-video">+ Видео-задание</button>
+          <button class="tab" data-panel="ad-boss">+ Кто руководитель</button>
+          <button class="tab" data-panel="ad-novideo">+ Нет видео</button>
+        </div>
+
+        <div class="panel active" id="ad-video">
+          <div class="prompt-head">
+            <div class="lbl">Видео-задание для кандидата<small>только если про него явно сказано в брифе</small></div>
+            <span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button>
+          </div>
+          <pre><span class="kw">ВИДЕО-ЗАДАНИЕ (блок прямо над анкетой)</span>
+Добавь блок с видео-заданием над анкетой (логика: посмотрел → записал → загрузил).
+Пример-видео — публичная ссылка Google Drive: <span class="ph">[ссылка]</span>. Встрой плеером (формат .../file/d/ID/preview), под ним — запасная прямая ссылка.
+Ориентация плеера: <span class="ph">[16:9 горизонтальное / 9:16 вертикальное]</span>.
+Текст задания — коротко и нейтрально: «<span class="ph">[например: Посмотрите видео и повторите фразы на камеру. Прикрепите запись в анкете ниже.]</span>».
+В анкете — поле загрузки видео (accept video/*, max_size_mb 60), с записью с камеры телефона.</pre>
+          <div class="hint">Заголовок секции — про действие («Посмотрите 1 минуту и повторите фразы»), не абстрактный «Видео-задание».</div>
+        </div>
+
+        <div class="panel" id="ad-boss">
+          <div class="prompt-head">
+            <div class="lbl">Блок «Кто руководитель»<small>когда акцент — личность основателя (ассистент, правая рука)</small></div>
+            <span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button>
+          </div>
+          <pre><span class="kw">БЛОК «КТО РУКОВОДИТЕЛЬ»</span>
+Добавь блок про руководителя: имя крупно + лид 1–2 строки (кто он, что построил) + 3–5 карточек-этапов карьеры.
+Этапы: <span class="ph">[этап 1: год + одна строка]</span>; <span class="ph">[этап 2]</span>; <span class="ph">[этап 3]</span>.
+На широком экране карточки в ряд, на телефоне — стеком.</pre>
+          <div class="hint">Хорошо работает для ассистентов и помощников — отвечает на немой вопрос «а кто этот человек рядом со мной».</div>
+        </div>
+
+        <div class="panel" id="ad-novideo">
+          <div class="prompt-head">
+            <div class="lbl">Видео руководителя нет<small>заменяем человеческий голос на цитату</small></div>
+            <span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button>
+          </div>
+          <pre><span class="kw">ВМЕСТО ВИДЕО</span>
+Видео руководителя нет. Поставь блок с цитатой: крупный текст + фото + подпись «<span class="ph">[Имя, должность]</span>».
+Цитата: «<span class="ph">[конкретная, живая цитата — без «мы ценим людей» и сравнений с корпорацией]</span>».
+Тон — спокойный, человечный.</pre>
+          <div class="hint">Полное отсутствие человеческого голоса делает лендинг безликим — хотя бы цитата быть должна.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 3+ — FIX PROMPTS ============ -->
+    <section class="doc" id="s4b">
+      <div class="step-badge"><span class="dot">2+</span> Правки</div>
+      <h2 class="s">Промпты-правки после первой версии</h2>
+      <p>Самые частые доработки. Скопируй нужную, подставь название блока — отправь в тот же чат.</p>
+
+      <div class="prompt">
+        <div class="tabs" data-tabs="fix" style="padding-bottom:12px">
+          <button class="tab active" data-panel="fx-hero">Hero</button>
+          <button class="tab" data-panel="fx-text">Слишком текстово</button>
+          <button class="tab" data-panel="fx-trim">Убрать лишнее</button>
+          <button class="tab" data-panel="fx-mock">Мокап вместо скриншота</button>
+          <button class="tab" data-panel="fx-mob">Мобильная версия</button>
+        </div>
+
+        <div class="panel active" id="fx-hero">
+          <div class="prompt-head"><div class="lbl">Переделать hero-заголовок</div><span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button></div>
+          <pre>Перепиши hero-заголовок: он должен быть про смысл вакансии, а не про должность. Должность убери в подзаголовок (+ город, формат, «от XXXк ₽»). Акцент цветом — только на 1–2 ключевых словах, не на всей фразе. Проверь перенос на ширине 360px, line-height не меньше 1.05.</pre>
+        </div>
+        <div class="panel" id="fx-text">
+          <div class="prompt-head"><div class="lbl">Блок слишком текстовый</div><span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button></div>
+          <pre>Блок «<span class="ph">[название блока]</span>» слишком текстовый. Разбей на плитки / чипы / крупные цифры: не больше одного короткого абзаца на блок. Перечисления — чипами или карточками, не списком с маркерами.</pre>
+        </div>
+        <div class="panel" id="fx-trim">
+          <div class="prompt-head"><div class="lbl">Убрать лишнее</div><span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button></div>
+          <pre>Убери блок «Требования» / «Кого мы ищем» и все фразы из стоп-листа инструкции. Не добавляй задачи, которых нет в тексте вакансии. Эмодзи из заголовков убери.</pre>
+        </div>
+        <div class="panel" id="fx-mock">
+          <div class="prompt-head"><div class="lbl">Мокап вместо скриншота</div><span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button></div>
+          <pre>Интерфейс «<span class="ph">[продукта]</span>» покажи мокапом на чистом HTML+CSS, не скриншотом: тулбар браузера сверху, содержимое в палитре бренда, акцентным цветом выдели <span class="ph">[что именно — активный слот / дату / кнопку]</span>. Подпись «Так выглядит [продукт]», не «Скриншот».</pre>
+        </div>
+        <div class="panel" id="fx-mob">
+          <div class="prompt-head"><div class="lbl">Проверить мобильную</div><span class="sp"></span>
+            <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button></div>
+          <pre>Проверь мобильную версию на 360px: все секции в одну колонку, заголовок hero не ломается, поля формы 16px (чтобы браузер не зумил), кнопки тапабельные (минимум 44×44px), видео и графики масштабируются.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 5 — OG PREVIEW ============ -->
+    <section class="doc" id="s6">
+      <div class="step-badge"><span class="dot">3</span> Превью</div>
+      <h2 class="s">Превью для мессенджеров (Open Graph)</h2>
+      <p>Чтобы при отправке ссылки в Telegram / Max / hh показывалась картинка-карточка, как у hh.ru. Промпт — в конец, когда лендинг уже собран.</p>
+      <div class="prompt">
+        <div class="prompt-head">
+          <div class="lbl">Сгенерировать OG-превью<small>картинка 1200×630 в стиле лендинга</small></div>
+          <span class="sp"></span>
+          <button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button>
+        </div>
+        <pre>Добавь к лендингу превью для мессенджеров (Open Graph-карточку), как у hh.ru.
+Сгенерируй картинку 1200×630 в стиле лендинга (палитра и шрифт из брифа):
+- логотип компании в левом верхнем углу,
+- крупный главный заголовок / лозунг,
+- фирменный фон, минимум текста — как hh-карточка.
+Сохрани как og-image.png рядом с index.html.
+Покажи, как будет выглядеть, и дай инструкцию проверить превью до выгрузки (дебаггер Telegram или telegram.org/img-resize).</pre>
+        <div class="hint"><b>Как проверить:</b> отправь ссылку боту <code>@WebpageBot</code> в Telegram (он обновит кэш превью) или открой <b>telegram.org/img-resize</b>. Картинка и заголовок должны совпадать с лендингом.</div>
+      </div>
+    </section>
+
+    <!-- ============ STEP 6 — FINAL CHECK ============ -->
+    <section class="doc" id="s7">
+      <div class="step-badge"><span class="dot">4</span> Проверка</div>
+      <h2 class="s">Перед сдачей пройтись</h2>
+      <p class="sub">Восемь пунктов. Открой лендинг с телефона, прощёлкай.</p>
+      <div class="card">
+        <ul class="check">
+          <li>Hero-заголовок про акцент, а не про должность</li>
+          <li>Есть видео руководителя или цитата с фото</li>
+          <li>У статистики указан источник и год</li>
+          <li>Зарплата с пояснением «зачем» каждой части</li>
+          <li>Анкета называется «Откликнуться», поля в один столбец</li>
+          <li>Если в анкете есть видео — поле обязательное и виден прогресс загрузки</li>
+          <li>В подвале нет чужих email/телефонов без разрешения</li>
+          <li>Мобильная версия проверена на 360px</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ STEP 7 — PACK & HANDOFF ============ -->
+    <section class="doc" id="s8">
+      <div class="step-badge"><span class="dot">5</span> Финал</div>
+      <h2 class="s">Собрать и передать разработчику</h2>
+      <p>Лендинг готов и нравится. Осталось упаковать его в zip и подготовить видео. По шагам.</p>
+
+      <h3 class="s">1. Получить zip</h3>
+      <p>Только теперь прикладываешь технический файл — и просишь собрать архив. Его содержимое знать не нужно: по нему Claude Design сам сделает правильную форму, <code>meta.json</code> и упакует всё в zip.</p>
+      <p>
+        <a class="fdl" href="files/claude-design-landing-guide.md" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>claude-design-landing-guide.md</a>
+        — приложи этот файл в тот же чат, затем отправь промпт:
+      </p>
+      <div class="snip"><button class="copy" data-copy><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Копировать</button><pre>Лендинг готов. Я приложил файл claude-design-landing-guide.md — собери проект в zip строго по нему (index.html + meta.json + assets/). В местах под видео оставь понятные имена файлов в assets/ и покажи мне список этих имён.</pre></div>
+      <div class="callout c-info">
+        <div class="ttl">⚑ Что выдаст Claude Design</div>
+        <p>Архив с тремя верхнеуровневыми путями. Видеофайлы внутрь не попадут — там будут только «пустые места» (ссылки на файлы в <code>assets/</code>). Их заполняешь ты на следующем шаге.</p>
+        <div class="snip" style="margin-top:10px"><pre>landing.zip
+├── index.html      ← страница лендинга
+├── meta.json       ← описание формы (собирается автоматически)
+└── assets/         ← картинки, og-image.png и СЮДА кладём видео</pre></div>
+      </div>
+
+      <h3 class="s">2. Скачать архив</h3>
+      <p>Скачай zip к себе и распакуй (или открой) — дальше нужно положить туда видео.</p>
+
+      <h3 class="s">3. Видео: назвать понятно и положить в архив</h3>
+      <p>На лендинге места под видео — пустые: это ссылки на файлы, которых пока нет. Чтобы разработчик понял, что куда вставлять, имена должны быть говорящими.</p>
+      <div class="miniflow">
+        <span class="b">место под видео на лендинге</span><span class="a">→</span>
+        <span class="b">понятное имя файла</span><span class="a">→</span>
+        <span class="b">переименовать своё видео так же</span><span class="a">→</span>
+        <span class="b accent">положить в assets/ внутри zip</span>
+      </div>
+      <table class="rn">
+        <tr><th>Что за видео</th><th>Как назвать файл (пример)</th></tr>
+        <tr><td>Видео руководителя</td><td><code>video-rukovoditel.mp4</code></td></tr>
+        <tr><td>Видео сотрудника (по имени)</td><td><code>video-sotrudnik-anna.mp4</code></td></tr>
+        <tr><td>Пример видео-задания для кандидата</td><td><code>video-zadanie-primer.mp4</code></td></tr>
+      </table>
+      <ul class="check">
+        <li>В лендинге каждое пустое место под видео ссылается на понятное имя в <code>assets/</code> (если нет — попроси Claude переименовать)</li>
+        <li>Своё видео переименовал <b>ровно так же</b>, как место в лендинге (буква в букву, латиницей, без пробелов)</li>
+        <li>Переименованные видео положил в папку <code>assets/</code> внутри архива</li>
+        <li>Имена латиницей, без пробелов и кириллицы</li>
+      </ul>
+      <div class="callout c-warn">
+        <div class="ttl">▲ Главное про видео</div>
+        <p>Имя места в лендинге и имя файла должны совпадать <b>буква в букву</b> — иначе видео не подхватится. Видео кладём именно в <code>assets/</code>, не в корень архива.</p>
+      </div>
+
+      <h3 class="s">4. Передать разработчику</h3>
+      <p>Готовый zip (с index.html, meta.json и видео в <code>assets/</code>) отдаёшь разработчику — он загружает лендинг, и тот получает ссылку вида <code>m.recruto.ru/…</code> для кандидатов.</p>
+      <div class="callout c-info">
+        <div class="ttl">⚑ Вопросы по технике</div>
+        <p>Если архив не приняли или что-то не подхватилось — это к Данилу (<code>@pheerses</code>). Тебе в детали лезть не нужно.</p>
+      </div>
+    </section>
+
+    <!-- ============ REFERENCE: VARIANTS ============ -->
+    <!-- ============ REFERENCE: DOWNLOADS ============ -->
+    <section class="doc" id="files">
+      <div class="step-badge"><span class="dot">·</span> Справочник</div>
+      <h2 class="s">Файлы для скачивания</h2>
+      <p>Файлы, которые грузятся в чат Claude Design. Инструкция — обязательна всегда; brand kit и лого — только для внутренних лендингов Рекруто; технический файл — в самом конце, для сборки zip.</p>
+      <div class="dl">
+        <a class="row" href="files/instrukciya-lendingi-vakansii.md" download>
+          <span class="ic">MD</span>
+          <span class="meta"><span class="nm">Инструкция по лендингам</span><span class="ds">Содержание и дизайн: структура, стоп-лист, клиповое мышление</span></span>
+          <span class="when">в начале</span><span class="arr">↓</span>
+        </a>
+        <a class="row" href="files/recruto-brand-kit.md" download>
+          <span class="ic">MD</span>
+          <span class="meta"><span class="nm">Brand kit Рекруто</span><span class="ds">Цвета, шрифт, голос, цифры, готовые блоки компании</span></span>
+          <span class="when re">Рекруто</span><span class="arr">↓</span>
+        </a>
+        <a class="row" href="files/recruto-logo-datauri.txt" download>
+          <span class="ic">TXT</span>
+          <span class="meta"><span class="nm">Логотип Рекруто (data-URI)</span><span class="ds">Белый логотип строкой — для шапки и подвала</span></span>
+          <span class="when re">Рекруто</span><span class="arr">↓</span>
+        </a>
+        <a class="row" href="files/prompt-template.md" download>
+          <span class="ic">MD</span>
+          <span class="meta"><span class="nm">Шаблон промпта</span><span class="ds">Тот же промпт, что выше — текстом, для правок</span></span>
+          <span class="when">в начале</span><span class="arr">↓</span>
+        </a>
+        <a class="row" href="files/claude-design-landing-guide.md" download>
+          <span class="ic">MD</span>
+          <span class="meta"><span class="nm">Технический файл для сборки zip</span><span class="ds">Прикладываешь в самом конце, когда лендинг готов — Claude Design соберёт архив. Содержимое учить не нужно.</span></span>
+          <span class="when">в конце</span><span class="arr">↓</span>
+        </a>
+      </div>
+      <div class="callout c-info">
+        <div class="ttl">⚑ Про скачивание</div>
+        <p>Кнопки работают, когда сайт выложен на GitHub Pages (файлы лежат в папке <code>files/</code> рядом с index.html). В предпросмотре внутри чата ссылки между файлами могут не подтянуться — это нормально.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot">
+  <div class="foot-in">
+    <img src="data:image/png;base64,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" alt="Рекруто">
+    <span class="sp"></span>
+    <span>Внутренняя инструкция · Рекруто · 2026</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Скопировано</div>
+
+<script>
+(function(){
+  // ---- Tabs ----
+  document.querySelectorAll('.tabs').forEach(function(group){
+    group.addEventListener('click', function(e){
+      var btn = e.target.closest('.tab'); if(!btn) return;
+      var panelId = btn.getAttribute('data-panel');
+      group.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+      btn.classList.add('active');
+      // panels are siblings after the tabs group, within same parent
+      var scope = group.parentElement;
+      scope.querySelectorAll(':scope > .panel').forEach(function(p){
+        p.classList.toggle('active', p.id === panelId);
+      });
+    });
+  });
+
+  // ---- Copy ----
+  var toast = document.getElementById('toast');
+  function showToast(msg){ toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(toast._t); toast._t = setTimeout(function(){toast.classList.remove('show')},1500); }
+  function fallbackCopy(text){
+    var ta=document.createElement('textarea'); ta.value=text;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try{document.execCommand('copy')}catch(e){} document.body.removeChild(ta);
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      // nearest pre: in .snip it's a sibling; in .prompt panel it's the next pre in the container
+      var container = btn.closest('.snip') || btn.closest('.panel') || btn.closest('.prompt');
+      var pre = container ? container.querySelector('pre') : null;
+      if(!pre){ return; }
+      var text = pre.innerText.replace(/\u00a0/g,' ');
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+      } else { fallbackCopy(text); done(); }
+      function done(){
+        var old = btn.innerHTML;
+        btn.classList.add('ok'); btn.innerHTML = '✓ Готово';
+        showToast('Скопировано — вставляй в Claude Design');
+        setTimeout(function(){ btn.classList.remove('ok'); btn.innerHTML = old; }, 1400);
+      }
+    });
+  });
+
+  // ---- Checklist toggle ----
+  document.querySelectorAll('.check li').forEach(function(li){
+    li.addEventListener('click', function(){ li.classList.toggle('done'); });
+  });
+
+  // ---- Mobile nav ----
+  var side=document.getElementById('side'), back=document.getElementById('navBack'),
+      burger=document.getElementById('burger');
+  function closeNav(){ side.classList.remove('open'); back.classList.remove('open'); }
+  burger.addEventListener('click', function(){ side.classList.add('open'); back.classList.add('open'); });
+  back.addEventListener('click', closeNav);
+  side.addEventListener('click', function(e){ if(e.target.closest('a')) closeNav(); });
+
+  // ---- Scrollspy ----
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.side a'));
+  var map = {}; links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(a){a.classList.remove('active')});
+        var a = map[en.target.id]; if(a) a.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-30% 0px -65% 0px'});
+  document.querySelectorAll('section.doc').forEach(function(s){ obs.observe(s); });
+})();
+</script>
+</body>
+</html>
